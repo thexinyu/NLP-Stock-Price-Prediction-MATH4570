@@ -1,7 +1,9 @@
+import pdfplumber
+import gensim
+
 class PdfCleaner:
 
   def __init__ (self,pdf_file_path):
-    import pdfplumber
     self.__path__ = pdf_file_path
     text = ""
     with pdfplumber.open(self.__path__) as pdf:
@@ -24,7 +26,6 @@ class PdfCleaner:
     print(self.__cleaned_text__)
 
   def clean_stopwords_punctuation(self):
-    import gensim
     from gensim.parsing.preprocessing import remove_stopwords, STOPWORDS
     cleaned_text = remove_stopwords(self.__original_text__)
     punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~©'''
@@ -36,8 +37,8 @@ class PdfCleaner:
 
 
 # Test
-origin = PdfCleaner("APPL_2016Q3.pdf")
-cleaned_text=origin.clean_stopwords_punctuation()
-origin.print_cleanedText()
-print(origin.lenBeforeClean())
-print(origin.lenAfterClean())
+# origin = PdfCleaner("APPL_2016Q3.pdf")
+# cleaned_text=origin.clean_stopwords_punctuation()
+# origin.print_cleanedText()
+# print(origin.lenBeforeClean())
+# print(origin.lenAfterClean())
