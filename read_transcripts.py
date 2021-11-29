@@ -1,3 +1,11 @@
+# recommended by samar: logistic regression, support vector classifier -> vectorize
+# not recommended by samar: naive bayes -> bag of words
+# X: features (len, word count, etc.)
+# y: price goes up or down (rise:1, fall:0)
+# dimensionality reduction, PCA (use PCA to get fixed dimension output) or pad with 0
+# does it matter if every vector has the same vs different features
+# create list of pdf strings for tfidf (the features should be the same)
+
 import PyPDF2
 
 """note- download via: pip install PyPDF2"""

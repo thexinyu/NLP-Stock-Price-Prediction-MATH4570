@@ -22,11 +22,13 @@ class Transcripts:
         lst_cleaned = []
         for file in lst_files:
             file_path = self.path + file
-            txt = PdfCleaner(file_path)
-            date = file[:8]
-            txt_cleaned = txt.clean_stopwords_punctuation()
-            dct_cleaned = {'name': self.ticker, 'date': date, 'transcript': txt_cleaned}
-            lst_cleaned.append(dct_cleaned)
+            if file_path[-3:] == 'pdf':
+                txt = PdfCleaner(file_path)
+                date = file[:8]
+                # txt_cleaned = txt.clean_stopwords_punctuation()
+                txt_cleaned = txt.clean_nums()
+                dct_cleaned = {'name': self.ticker, 'date': date, 'transcript': txt_cleaned}
+                lst_cleaned.append(dct_cleaned)
         return lst_cleaned
 
 class Database:
@@ -36,9 +38,6 @@ class Database:
         self.db = client.transcripts
 
     def store_data(self, tickers_lst):
-        # client = MongoClient()
-        # client.drop_database('transcripts')
-        # db = client.transcripts
         for t in tickers_lst:
             store = Transcripts(t)
             transcript = store.create_dct()
@@ -47,7 +46,8 @@ class Database:
         return self.db
 
 def main():
-    tickers = ['APPLE', 'MSFT']
+    tickers = ['APPL']
+        #, 'MSFT', 'FB', 'GOOGL', 'NFLX', 'TSLA', 'ADBE', 'CMCSA', 'COST', 'AMZN']
     # works: APPL, MSFT
     # doesn't work: FB, GOOGL, NFLX, TSLA, ADBE, CMCSA, COST, AMZN
 

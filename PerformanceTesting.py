@@ -34,7 +34,7 @@ class PerformanceTester():
             raise Exception('invalid frame')
         self.preferredTimespan = span
    
-    def aquireTargetValues(self):
+    def acquireTargetValues(self):
         '''
         Creates x values (list of articles) and y values (list of stock price change after article release) for nlp training
         '''
@@ -69,7 +69,7 @@ Tester = PerformanceTester()
 articles = [['AAPL', '2019-10-02', cleaned_text], ['AAPL', '2019-10-02', cleaned_text]]
 Tester.loadArticles(articles)
 Tester.setTimeframe('day', 2)
-xy = Tester.aquireTargetValues()
+xy = Tester.acquireTargetValues()
 X = xy[0]
 y = xy[1]
 print('This is the text in list format to input into the model: \n', X, '\n\n\n', 
