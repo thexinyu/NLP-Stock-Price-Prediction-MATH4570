@@ -48,6 +48,10 @@ class PerformanceTester():
                 priceChange = Puller.changeOverHours(article[0], article[1], self.preferredTimespan)
             else:
                 raise Exception('Please choose a reference type (\'hour\' or \'day\') using function setTimeframe')
+            if priceChange >= 0:
+                priceChange = 1
+            else:
+                priceChange = 0
             y_values.append(priceChange)
         return [x_values, y_values]
        
@@ -66,5 +70,8 @@ articles = [['AAPL', '2019-10-02', cleaned_text], ['AAPL', '2019-10-02', cleaned
 Tester.loadArticles(articles)
 Tester.setTimeframe('day', 2)
 xy = Tester.aquireTargetValues()
-print(xy[0], '\n\n\n', xy[1])
+X = xy[0]
+y = xy[1]
+print('This is the text in list format to input into the model: \n', X, '\n\n\n', 
+      'This is the classification in list format (1 for positive movement 0 for negative movement):', y)
 
