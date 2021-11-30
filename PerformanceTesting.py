@@ -23,8 +23,8 @@ class PerformanceTester():
         Sets timeframe
  
         Parameters:
-            frame (str):
-            span (int):
+            frame (str): what unit (day or hour) are we using to look ahead
+            span (int): how many units forward forward do you want the tester to test
         '''
         if frame == 'hour':
             self.timeframe = 'hour'
@@ -34,7 +34,7 @@ class PerformanceTester():
             raise Exception('invalid frame')
         self.preferredTimespan = span
    
-    def acquireTargetValues(self):
+    def aquireTargetValues(self):
         '''
         Creates x values (list of articles) and y values (list of stock price change after article release) for nlp training
         '''
@@ -62,16 +62,19 @@ class PerformanceTester():
 # Test
  
 # Get clean stock transcripts
-origin = PdfCleaner("AAPL Transcripts/APPL_2016Q3.pdf")
-cleaned_text = origin.clean_stopwords_punctuation()
- 
-Tester = PerformanceTester()
-articles = [['AAPL', '2019-10-02', cleaned_text], ['AAPL', '2019-10-02', cleaned_text]]
-Tester.loadArticles(articles)
-Tester.setTimeframe('day', 1)
-xy = Tester.aquireTargetValues()
-X = xy[0]
-y = xy[1]
-print('This is the text in list format to input into the model: \n', X, '\n\n\n', 
-      'This is the classification in list format (1 for positive movement 0 for negative movement):', y)
+def main():
+    origin = PdfCleaner("AAPL Transcripts/APPL_2016Q3.pdf")
+    cleaned_text = origin.clean_stopwords_punctuation()
+    
+    Tester = PerformanceTester()
+    articles = [['AAPL', '20191002', cleaned_text], ['AAPL', '20191002', cleaned_text]]
+    Tester.loadArticles(articles)
+    Tester.setTimeframe('day', 1)
+    xy = Tester.aquireTargetValues()
+    X = xy[0]
+    y = xy[1]
+    print('This is the text in list format to input into the model: \n', X, '\n\n\n', 
+        'This is the classification in list format (1 for positive movement 0 for negative movement):', y)
 
+if __name__=='__main__':
+    main()

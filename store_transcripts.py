@@ -1,6 +1,7 @@
 from PdfCleaner import PdfCleaner
 from os import listdir
 from os.path import isfile, join
+from PerformanceTesting import PerformanceTester
 import pdfplumber
 import json
 import pandas as pd
@@ -12,7 +13,7 @@ from pymongo import MongoClient
 class Transcripts:
     def __init__(self, ticker):
         self.ticker = ticker
-        self.path = "/Users/xinyuwu/Desktop/fall21/ds3500/DS3500-Final-Project/transcripts/"+ticker+"_transcripts/"
+        self.path = "C:/Users/mtort/Repositories/DS3500-Final-Project/transcripts/"+ticker+"_transcripts/"
 
     def read_files(self):
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
@@ -27,7 +28,17 @@ class Transcripts:
                 date = file[:8]
                 # txt_cleaned = txt.clean_stopwords_punctuation()
                 txt_cleaned = txt.clean_nums()
-                dct_cleaned = {'name': self.ticker, 'date': date, 'transcript': txt_cleaned}
+                PerfTest = PerformanceTester()
+                PerfTest.setTimeframe('day', 1)
+                PerfTest.loadArticles([[self.ticker, date, txt_cleaned]])
+                try:
+                    classification_xy = PerfTest.aquireTargetValues()
+                except KeyError:
+                    print(f'''Warning: attempted to access market during weekend or after hours
+                          Earnings Transcript {file_path} Not Added
+                          ''')
+                    continue
+                dct_cleaned = {'name': self.ticker, 'date': date, 'transcript': txt_cleaned, 'price_change': classification_xy[1][0]}
                 lst_cleaned.append(dct_cleaned)
         return lst_cleaned
 
@@ -46,7 +57,7 @@ class Database:
         return self.db
 
 def main():
-    tickers = ['APPL']
+    tickers = ['AAPL']
         #, 'MSFT', 'FB', 'GOOGL', 'NFLX', 'TSLA', 'ADBE', 'CMCSA', 'COST', 'AMZN']
     # works: APPL, MSFT
     # doesn't work: FB, GOOGL, NFLX, TSLA, ADBE, CMCSA, COST, AMZN

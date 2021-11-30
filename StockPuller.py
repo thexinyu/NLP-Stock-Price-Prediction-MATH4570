@@ -63,9 +63,14 @@ class StockPuller:
         stock = yf.Ticker(ticker)
         stockData = stock.history(period='5y', interval='1d')
  
-        startDatetime = datetime.strptime(startDate, '%Y-%m-%d')
+        startDatetime = datetime.strptime(startDate, '%Y%m%d')
         endDatetime = startDatetime + timedelta(days=days)
- 
+        # try:
+        #     startPrice = stockData.loc[startDatetime]['Open']
+        #     endPrice = stockData.loc[endDatetime]['Close']
+        # except:
+        #     return KeyError('Attempted to access Date or Hour during closed market')
+        
         startPrice = stockData.loc[startDatetime]['Open']
         endPrice = stockData.loc[endDatetime]['Close']
         changeInPrice = startPrice / endPrice
@@ -102,11 +107,13 @@ class StockPuller:
    
  
  
- 
-# Puller = StockPuller()  
-# Puller.plotAll()
-# Puller.plotStock('AAPL')
-# Puller.dailyData('AAPL')
-# print(Puller.changeOverDays('AAPL', '2019-10-02', 50))
-# print(Puller.changeOverHours('AAPL', '2019-11-11 11:30:00', 25))
+def main():
+    Puller = StockPuller()  
+    Puller.plotAll()
+    Puller.plotStock('AAPL')
+    Puller.dailyData('AAPL')
+    print(Puller.changeOverDays('AAPL', '20191002', 50))
+    # print(Puller.changeOverHours('AAPL', '2019-11-11 11:30:00', 25))
 
+if __name__ == '__main__':
+    main()
