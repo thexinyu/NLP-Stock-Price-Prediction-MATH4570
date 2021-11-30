@@ -68,7 +68,7 @@ cleaned_text = origin.clean_stopwords_punctuation()
 Tester = PerformanceTester()
 articles = [['AAPL', '2019-10-02', cleaned_text], ['AAPL', '2019-10-02', cleaned_text]]
 Tester.loadArticles(articles)
-Tester.setTimeframe('day', 2)
+Tester.setTimeframe('day', 1)
 xy = Tester.aquireTargetValues()
 X = xy[0]
 y = xy[1]
