@@ -1,5 +1,7 @@
 import pdfplumber
 import gensim
+from gensim.parsing.preprocessing import remove_stopwords, STOPWORDS
+import re
 
 class PdfCleaner:
 
@@ -12,6 +14,7 @@ class PdfCleaner:
         text = text + str(page.extract_text())
     self.__original_text__ = text
     self.__cleaned_text__= self.clean_stopwords_punctuation()
+    self.__nonum_text__ = self.clean_nums()
 
   def lenBeforeClean(self):
     return len(self.__original_text__)
@@ -26,7 +29,6 @@ class PdfCleaner:
     print(self.__cleaned_text__)
 
   def clean_stopwords_punctuation(self):
-    from gensim.parsing.preprocessing import remove_stopwords, STOPWORDS
     cleaned_text = remove_stopwords(self.__original_text__)
     punc = '''!()-[]{};:'"\,<>./?@#$%^&*_~©'''
     for ele in cleaned_text:
@@ -34,6 +36,9 @@ class PdfCleaner:
          cleaned_text = cleaned_text.replace(ele, "")
     return cleaned_text
 
+  def clean_nums(self):
+    nonum_text = re.sub(r'\d+', '', self.__cleaned_text__)
+    return nonum_text
 
 
 # Test

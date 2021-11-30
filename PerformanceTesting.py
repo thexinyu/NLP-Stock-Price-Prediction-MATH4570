@@ -34,7 +34,7 @@ class PerformanceTester():
             raise Exception('invalid frame')
         self.preferredTimespan = span
    
-    def aquireTargetValues(self):
+    def acquireTargetValues(self):
         '''
         Creates x values (list of articles) and y values (list of stock price change after article release) for nlp training
         '''
