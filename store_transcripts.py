@@ -13,7 +13,12 @@ from pymongo import MongoClient
 class Transcripts:
     def __init__(self, ticker):
         self.ticker = ticker
-        self.path = "C:/Users/mtort/Repositories/DS3500-Final-Project/transcripts/"+ticker+"_transcripts/"
+        xinyu = "/Users/xinyuwu/Desktop/fall21/ds3500/DS3500-Final-Project"
+        marco = "C:/Users/mtort/Repositories/DS3500-Final-Project"
+        emily = "/Users/emilywang/Desktop/DS3500-Final-Project-main-2"
+        kelly = "/Users/kelly/Desktop/ds3500/DS3500-Final-Project"
+        qi = ""
+        self.path = xinyu + "/transcripts/"+ticker+"_transcripts/"
 
     def read_files(self):
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
@@ -38,7 +43,7 @@ class Transcripts:
                           Earnings Transcript {file_path} Not Added
                           ''')
                     continue
-                dct_cleaned = {'name': self.ticker, 'date': date, 'transcript': txt_cleaned, 'price_change': classification_xy[1][0]}
+                dct_cleaned = {'price_change': classification_xy[1][0], 'name': self.ticker, 'date': date, 'transcript': txt_cleaned}
                 lst_cleaned.append(dct_cleaned)
         return lst_cleaned
 
