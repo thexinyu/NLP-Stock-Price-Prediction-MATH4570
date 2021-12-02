@@ -24,6 +24,17 @@ class StockPuller:
         hist["Close"].plot(figsize=(16,9))
         plt.legend([ticker])
         plt.show()
+    
+    # add plot timeframe
+    # def plotInterval(self, ticker, startDate, interval):
+    #     stock = yf.Ticker(ticker)
+    #     stockData = stock.history(period='5y', interval='1d')
+ 
+    #     startDatetime = datetime.strptime(startDate, '%Y%m%d')
+    #     endDatetime = startDatetime + timedelta(days=days)
+
+    #     startPrice = stockData.loc[startDatetime]['Open']
+    #     endPrice = stockData.loc[endDatetime]['Close']
  
     def dailyData(self, ticker):
         stock = yf.Ticker(ticker)

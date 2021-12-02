@@ -73,7 +73,7 @@ def main():
     xy = Tester.aquireTargetValues()
     X = xy[0]
     y = xy[1]
-    print('This is the text in list format to input into the model: \n', X, '\n\n\n', 
+    print('This is the text in list format to input into the model: \n\n', X, '\n\n', 
         'This is the classification in list format (1 for positive movement 0 for negative movement):', y)
 
 if __name__=='__main__':
