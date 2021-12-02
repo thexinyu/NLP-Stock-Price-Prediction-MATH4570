@@ -6,26 +6,8 @@ from datetime import timedelta
  
 class StockPuller:
     def __init__(self):
-        self. tickerList = ('AAPL',
-                            'MSFT',
-                            'AMZN',
-                            'FB',
-                            'GOOG',
-                            'GOOGL',
-                            'TSLA',
-                            'NVDA',
-                            'PYPL',
-                            'ASML',
-                            'INTC',
-                            'CMCSA',
-                            'NFLX',
-                            'ADBE',
-                            'CSCO',
-                            'PEP',
-                            'AVGO',
-                            'TXN',
-                            'PDD',
-                            'TMUS')
+        self. tickerList = ['AAPL', 'ADBE', 'AMZN', 'ASML', 'AVGO', 'CMCSA', 'COST',  'CSCO', 'FB', 'GOOGL',
+           'INTC', 'MSFT', 'NFLX', 'NVDA', 'PDD', 'PEP', 'PYPL', 'TMUS', 'TSLA', 'TXN']
        
     # get historical market data
     def plotAll(self):
