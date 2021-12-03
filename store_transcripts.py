@@ -18,7 +18,7 @@ class Transcripts:
         emily = "/Users/emilywang/Desktop/DS3500-Final-Project-main-2"
         kelly = "/Users/kelly/Desktop/ds3500/DS3500-Final-Project"
         qi = ""
-        self.path = xinyu + "/transcripts/"+ticker+"_transcripts/"
+        self.path = marco + "/transcripts/"+ticker+"_transcripts/"
 
     def read_files(self):
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
