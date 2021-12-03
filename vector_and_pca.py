@@ -5,15 +5,12 @@ import pandas as pd
 from store_transcripts import Database
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from pymongo import MongoClient
 
 class Vectorizer:
-    def __init__(self):
-        pass
-        self.tickers = ['AAPL', 'ADBE', 'AMZN', 'ASML', 'AVGO', 'CMCSA', 'COST',  'CSCO', 'FB', 'GOOGL',
-           'INTC', 'MSFT', 'NFLX', 'NVDA', 'PDD', 'PEP', 'PYPL', 'TMUS', 'TSLA', 'TXN']
-
-        self.database = Database()
-        self.db = self.database.store_data(self.tickers)
+    def __init__(self, tickers):
+        self.tickers = tickers
+        self.db = MongoClient().transcripts
         
     def query_data(self):
         ''' Function to query for all transcripts and store as list '''
@@ -30,7 +27,7 @@ class Vectorizer:
 
     def tfidf(self, text):
         ''' Tfidf vectorizer to match words to TFIDF values '''
-        vect = TfidfVectorizer(min_df=3, ngram_range = (1, 1)).fit(text)
+        vect = TfidfVectorizer(min_df=1, ngram_range = (1, 1)).fit(text)
         bag_of_words = vect.transform(text)
         feature_names = vect.get_feature_names()
 
@@ -41,14 +38,18 @@ class Vectorizer:
     def create_pca_df(self, bag_of_words):
         ''' PCA to reduce total number of features before feeding into ML model '''
         # instantiate the PCA object and request reduced number of components (reduces number of columns/features)
-        pca = PCA(n_components=150, random_state=3000)
+        #pca = PCA(n_components=150, random_state=3000)
+        pca = PCA(n_components=1, random_state=3000)
 
 
         # standardize the features so they are all on the same scale
         features_standardized = StandardScaler().fit_transform(bag_of_words.toarray())
 
         # transform the standardized features using the PCA algorithm 
+
         reduced_data = pca.fit_transform(features_standardized)
+
+            
 
         # show transformed results in dataframe
         pca_df = pd.DataFrame(reduced_data)#, columns = components)
