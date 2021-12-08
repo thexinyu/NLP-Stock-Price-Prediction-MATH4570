@@ -1,7 +1,7 @@
 from PdfCleaner import PdfCleaner
 from os import listdir
 from os.path import isfile, join
-from PerformanceTesting import PerformanceTester
+from PerformanceTester import PerformanceTester
 import pdfplumber
 import json
 import pandas as pd
@@ -18,7 +18,7 @@ class Transcripts:
         emily = "/Users/emilywang/Desktop/DS3500-Final-Project-main-2"
         kelly = "/Users/kelly/Desktop/ds3500/DS3500-Final-Project"
         qi = ""
-        self.path = marco + "/transcripts/"+ticker+"_transcripts/"
+        self.path = xinyu + "/transcripts/"+ticker+"_transcripts/"
 
     def read_files(self):
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
@@ -31,7 +31,6 @@ class Transcripts:
             if file_path[-3:] == 'pdf':
                 txt = PdfCleaner(file_path)
                 date = file[:8]
-                # txt_cleaned = txt.clean_stopwords_punctuation()
                 txt_cleaned = txt.clean_nums()
                 PerfTest = PerformanceTester()
                 PerfTest.setTimeframe('day', 1)
