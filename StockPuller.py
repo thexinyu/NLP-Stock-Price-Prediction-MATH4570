@@ -47,11 +47,6 @@ class StockPuller:
  
         startDatetime = datetime.strptime(startDate, '%Y%m%d')
         endDatetime = startDatetime + timedelta(days=days)
-        # try:
-        #     startPrice = stockData.loc[startDatetime]['Open']
-        #     endPrice = stockData.loc[endDatetime]['Close']
-        # except:
-        #     return KeyError('Attempted to access Date or Hour during closed market')
         
         startPrice = stockData.loc[startDatetime]['Open']
         endPrice = stockData.loc[endDatetime]['Close']
