@@ -89,7 +89,6 @@ def main():
     Puller.plotStock('AAPL')
     Puller.dailyData('AAPL')
     print(Puller.changeOverDays('AAPL', '20191002', 50))
-    # print(Puller.changeOverHours('AAPL', '2019-11-11 11:30:00', 25))
 
 if __name__ == '__main__':
     main()
