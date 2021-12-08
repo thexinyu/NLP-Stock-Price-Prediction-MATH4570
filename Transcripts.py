@@ -12,26 +12,34 @@ from pymongo import MongoClient
 
 class Transcripts:
     def __init__(self, ticker):
+    """ Identify path to folder where defined ticker's transcripts are stored on computer """
         self.ticker = ticker
         xinyu = "/Users/xinyuwu/Desktop/fall21/ds3500/DS3500-Final-Project"
         marco = "C:/Users/mtort/Repositories/DS3500-Final-Project"
         emily = "/Users/emilywang/Desktop/DS3500-Final-Project-main-2"
         kelly = "/Users/kelly/Desktop/ds3500/DS3500-Final-Project"
-        qi = ""
+        qi = "/Users/liqi/Desktop/DS3500/DS3500-Final-Project-main-2"
         self.path = xinyu + "/transcripts/"+ticker+"_transcripts/"
 
     def read_files(self):
+    """ Read all transcript files from folder """
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
 
     def create_dct(self):
+    """ Make dictionary of transcripts and stock prie change data, return as a list of dictionaries for each transcript file in folder """
         lst_files = self.read_files()
         lst_cleaned = []
+        
+        # read in each file from folder
         for file in lst_files:
             file_path = self.path + file
             if file_path[-3:] == 'pdf':
-                txt = PdfCleaner(file_path)
+                # clean text from transcript pdf
+                txt = PdfCleaner(file_path) 
                 date = file[:8]
                 txt_cleaned = txt.clean_nums()
+                
+                # get stock price change data for given ticker and date
                 PerfTest = PerformanceTester()
                 PerfTest.setTimeframe('day', 1)
                 PerfTest.loadArticles([[self.ticker, date, txt_cleaned]])
@@ -42,56 +50,15 @@ class Transcripts:
                           Earnings Transcript {file_path} Not Added
                           ''')
                     continue
+                    
+                # create dictionary for given transcript and add to list of dictionaries
                 dct_cleaned = {'price_change': classification_xy[1][0], 'name': self.ticker, 'date': date, 'transcript': txt_cleaned}
                 lst_cleaned.append(dct_cleaned)
+        
         return lst_cleaned
 
-# class Database:
-#     def __init__(self):
-#         client = MongoClient()
-#         client.drop_database('transcripts')
-#         self.db = client.transcripts
-
-#     def store_data(self, tickers_lst):
-#         for t in tickers_lst:
-#             store = Transcripts(t)
-#             transcript = store.create_dct()
-#             self.db.transcript.insert_many(transcript)
-#             print(t + " transcripts stored successfully")
-#         return self.db
-
-def main():
-    tickers = ['AAPL']
-        #, 'MSFT', 'FB', 'GOOGL', 'NFLX', 'TSLA', 'ADBE', 'CMCSA', 'COST', 'AMZN']
-    # works: APPL, MSFT
-    # doesn't work: FB, GOOGL, NFLX, TSLA, ADBE, CMCSA, COST, AMZN
-
-    # 'APPL', 'MSFT', 'FB', 'GOOGL', 'NFLX', 'TSLA', 'ADBE', 'CMCSA', 'COST', 'AMZN'
-    # client = MongoClient()
-    # client.drop_database('transcripts')
-    # db = client.transcripts
-
-
-    # for t in tickers:
-    #     store = Transcripts(t)
-    #     transcript = store.create_dct()
-    #     # print(transcript)
-    #     db.transcript.insert_many(transcript)
-    #     print(t + " transcripts stored successfully")
-
-    # db.transcript.find() # client.transcripts.transcript.find()
-
-    database = Database()
-    db = database.store_data(tickers)
-    all_transcripts = db.transcript.find()
-    for transcript in all_transcripts:
-        print(transcript)
-
-
-if __name__ == '__main__':
-    main()
-
-
+    
+    
 
 
 

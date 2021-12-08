@@ -24,17 +24,6 @@ class StockPuller:
         hist["Close"].plot(figsize=(16,9))
         plt.legend([ticker])
         plt.show()
-    
-    # add plot timeframe
-    # def plotInterval(self, ticker, startDate, interval):
-    #     stock = yf.Ticker(ticker)
-    #     stockData = stock.history(period='5y', interval='1d')
- 
-    #     startDatetime = datetime.strptime(startDate, '%Y%m%d')
-    #     endDatetime = startDatetime + timedelta(days=days)
-
-    #     startPrice = stockData.loc[startDatetime]['Open']
-    #     endPrice = stockData.loc[endDatetime]['Close']
  
     def dailyData(self, ticker):
         stock = yf.Ticker(ticker)
@@ -58,11 +47,6 @@ class StockPuller:
  
         startDatetime = datetime.strptime(startDate, '%Y%m%d')
         endDatetime = startDatetime + timedelta(days=days)
-        # try:
-        #     startPrice = stockData.loc[startDatetime]['Open']
-        #     endPrice = stockData.loc[endDatetime]['Close']
-        # except:
-        #     return KeyError('Attempted to access Date or Hour during closed market')
         
         startPrice = stockData.loc[startDatetime]['Open']
         endPrice = stockData.loc[endDatetime]['Close']
@@ -86,7 +70,6 @@ class StockPuller:
         stockData = stock.history(period='2y', interval='1h')
         stockData.index = stockData.index.tz_localize(None)
        
-        # TO DO: limit to only allow times within market open/closing hours (9:30am-4:30pm)
         try:
             startDatetime = datetime.strptime(startDate, '%Y-%m-%d %H:%M:%S')
             endDatetime = startDatetime + timedelta(hours=hours)
@@ -106,7 +89,6 @@ def main():
     Puller.plotStock('AAPL')
     Puller.dailyData('AAPL')
     print(Puller.changeOverDays('AAPL', '20191002', 50))
-    # print(Puller.changeOverHours('AAPL', '2019-11-11 11:30:00', 25))
 
 if __name__ == '__main__':
     main()

@@ -12,11 +12,13 @@ from pymongo import MongoClient
 
 class Database:
     def __init__(self):
+    """ Establish mongoclient connection and create transcript database"""
         client = MongoClient()
         client.drop_database('transcripts')
         self.db = client.transcripts
 
     def store_data(self, tickers_lst):
+    """ Store transcript data for each ticker into mongodb database"""
         for t in tickers_lst:
             store = Transcripts(t)
             transcript = store.create_dct()
