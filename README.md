@@ -22,14 +22,13 @@ Although we have yet to implement a main class to limit the function calls, we h
 
 ## File structure:
 This project code involves 6 classes in total, each with their independent file:
-- store_transcripts.py
-  - PerformanceTesting.py
-    - StockPuller.py
-  - PDFCleaner.py
-- vector_and_pca.py
-- Modeling_eval.py
+- Transcripts.py
+- PerformanceTester.py
+- StockPuller.py
+- PDFCleaner.py
+- Database.py
 
-As organized above, a main.py file only needs ‘store_transcripts’, ‘vector_and_pca’ ,and ‘modeling_eval’ since other classes only work to allow the aforementioned classes to function properly. For this project, jupyter files (such as ‘ds3500_presentation.ipynb’ or ‘starbucks_demo.ipynb’) provide examples of how to set up the pipeline to either analyze many stocks or a chosen subset of stocks. Lastly, the transcript folder (named ‘transcripts’) should consist of raw earnings call transcripts, organized as such: 
+For this project, the jupyter file, models_visualizations_demo.ipynb provide an example of how to set up the pipeline to either analyze many stocks or a chosen subset of stocks. Lastly, the transcript folder (named ‘transcripts’) should consist of raw earnings call transcripts used for training the model (40 largest NASDAQ and S&P 500 companies by market cap), organized as such: 
 - Transcripts
   - AAPL_transcripts
     - 20180501_Apple_Inc-_Earnings_Call_2018-5-1_FS000000002423660030.pdf
@@ -48,7 +47,7 @@ Note that for the transcript files, the stock ticker is apparent in the subfolde
 - StockPuller.py
     - Pulls stock data from yahoo finance for requested ticker, and depending on timeframe selected (preset to 1 day), will return whether a stock’s price moved up or down (1 or 0) after that timeframe.
 PDFCleaner.py
-- PerformanceTesting.py
+- PerformanceTester.py
     - Runs StockPuller on a list of stocks baased on the provided tickers and dates. Creates a list of ints or floatsthat can be used as a classification label when appended to the rest of the transcript data.
 - Store_transcripts.py
     - Initializes MongoDB database and stores transcripts, ticker names, dates, and stock performance labels into database. Will be crucial for model training and testing, as cleaning and moving the transcripts takes a long time.
@@ -58,4 +57,4 @@ PDFCleaner.py
     - Applies and compares different machine learning methods and makes predictions on the inputted vectorized and labeled text data. Returns accuracy of models and is ultimately the performance metric for the ability to make predictions of price movement
 
 ## Acknowledgement:
-We thank Professor John Rachlin for bringing this idea to our attention and providing us the preparation and the space to develop this project fully. We would also like to thank TA’s Samar Dikshit and Oleks Litus for their guidance in how to best approach the problems involved with text cleaning and nlp.
+We thank Professor John Rachlin for providing us the preparation and the space to develop this project fully. We would also like to thank TA’s Samar Dikshit and Oleks Litus for their guidance in how to best approach the problems involved with text cleaning and nlp.
