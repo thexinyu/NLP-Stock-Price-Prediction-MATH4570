@@ -57,5 +57,5 @@ PDFCleaner.py
 - Modeling_eval.py
     - Applies and compares different machine learning methods and makes predictions on the inputted vectorized and labeled text data. Returns accuracy of models and is ultimately the performance metric for the ability to make predictions of price movement
 
-## Awknoledgement:
+## Acknowledgement:
 We thank Professor John Rachlin for bringing this idea to our attention and providing us the preparation and the space to develop this project fully. We would also like to thank TA’s Samar Dikshit and Oleks Litus for their guidance in how to best approach the problems involved with text cleaning and nlp.
