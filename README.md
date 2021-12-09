@@ -46,15 +46,14 @@ Note that for the transcript files, the stock ticker is apparent in the subfolde
     - Takes a pdf file of an earnings call transcripts, scrapes it for text, and returns the cleaned version of the text. This will be essential for preparing large amounts of text data for processing.
 - StockPuller.py
     - Pulls stock data from yahoo finance for requested ticker, and depending on timeframe selected (preset to 1 day), will return whether a stock’s price moved up or down (1 or 0) after that timeframe.
-PDFCleaner.py
 - PerformanceTester.py
-    - Runs StockPuller on a list of stocks baased on the provided tickers and dates. Creates a list of ints or floatsthat can be used as a classification label when appended to the rest of the transcript data.
+    - Runs StockPuller on a list of stocks baased on the provided tickers and dates. Creates a list of ints or floats that can be used as a classification label when appended to the rest of the transcript data.
 - Store_transcripts.py
     - Initializes MongoDB database and stores transcripts, ticker names, dates, and stock performance labels into database. Will be crucial for model training and testing, as cleaning and moving the transcripts takes a long time.
-- Vector_and_pca.py
-    - Vectorizes cleaned text data to create inputs that machine learning models can understand, and then uses principal component analysis to prioritize words that show up often and have sizable impact on the outcome of the transcript’s meaning.
-- Modeling_eval.py
-    - Applies and compares different machine learning methods and makes predictions on the inputted vectorized and labeled text data. Returns accuracy of models and is ultimately the performance metric for the ability to make predictions of price movement
+- Transcripts.py
+    - Reads all transcripts from folder, uses PDFCleaner.py to clean all transcripts, and creates a dictionary with transcripts and matching stock price change data.
+- Database.py
+    - Establishes connection with MongoClient and creates transcript database with transcripts from each ticker.
 
 ## Acknowledgement:
 We thank Professor John Rachlin for providing us the preparation and the space to develop this project fully. We would also like to thank TA’s Samar Dikshit and Oleks Litus for their guidance in how to best approach the problems involved with text cleaning and nlp.
