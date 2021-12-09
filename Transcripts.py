@@ -26,7 +26,7 @@ class Transcripts:
         return [f for f in listdir(self.path) if isfile(join(self.path, f))]
 
     def create_dct(self):
-    """ Make dictionary of transcripts and stock prie change data, return as a list of dictionaries for each transcript file in folder """
+    """ Make dictionary of transcripts and stock price change data, return as a list of dictionaries for each transcript file in folder """
         lst_files = self.read_files()
         lst_cleaned = []
         
